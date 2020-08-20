@@ -61,7 +61,7 @@ export default {
     data() {
         return {
             connection: {
-                remote: true,
+                remote: false,
                 ip: "10.1.250.157",
                 url: ""
             },

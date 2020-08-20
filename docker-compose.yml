@@ -2,7 +2,7 @@ version:             '3'
 
 services:
 
-    websocket.chat:
+    server.chat:
         image: node
         environment:
             - NODE_ENV=dev
@@ -10,11 +10,11 @@ services:
         ports:
             - "5000:5000"
         volumes:
-            - ./websocket_chat:/app/websocket_chat
-        working_dir: /app/websocket_chat
+            - ./server:/app/server
+        working_dir: /app/server
         command: bash -c "npm i && npm start"
 
-    app.chat:
+    client.chat:
         image: node
         environment:
             - NODE_ENV=dev
@@ -22,8 +22,8 @@ services:
         ports:
             - "80:8080"
         volumes:
-            - ./app_chat:/app/app_chat
-        working_dir: /app/app_chat
+            - ./client:/app/client
+        working_dir: /app/client
         command: bash -c "npm i && npm run serve"
         links:
-            - websocket.chat
+            - server.chat
