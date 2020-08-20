@@ -2,29 +2,28 @@ version:             '3'
 
 services:
 
-    api.chat:
+    websocket.chat:
         image: node
         environment:
             - NODE_ENV=dev
-            - VHOST_HOSTNAME=api.chat.local
+            - VHOST_HOSTNAME=websocket.chat.local
         ports:
-            - "3000:3000"
             - "5000:5000"
         volumes:
-            - ./api_chat:/app/api_chat
-        working_dir: /app/api_chat
+            - ./websocket_chat:/app/websocket_chat
+        working_dir: /app/websocket_chat
         command: bash -c "npm i && npm start"
 
-    # app.chat:
-    #     image: node
-    #     environment:
-    #         - NODE_ENV=dev
-    #         - VHOST_HOSTNAME=api.chat.local
-    #     ports:
-    #         - "80:8080"
-    #     volumes:
-    #         - ./app_chat:/app/app_chat
-    #     working_dir: /app/app_chat
-    #     command: bash -c "npm i && npm run serve"
-    #     links:
-    #         - api.chat
+    app.chat:
+        image: node
+        environment:
+            - NODE_ENV=dev
+            - VHOST_HOSTNAME=app.chat.local
+        ports:
+            - "80:8080"
+        volumes:
+            - ./app_chat:/app/app_chat
+        working_dir: /app/app_chat
+        command: bash -c "npm i && npm run serve"
+        links:
+            - websocket.chat

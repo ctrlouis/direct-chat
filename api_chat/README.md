@@ -1,1 +1,0 @@
-# WAX MANAGER API

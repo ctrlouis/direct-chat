@@ -1,6 +1,5 @@
 <template>
     <div id="app">
-        <!-- <img alt="Vue logo" src="./assets/logo.png"> -->
         <div v-if="!readyToChat" id="connection">
             
             <md-field>
@@ -111,9 +110,7 @@ export default {
 
         scrollToEnd() {    	
             const container = this.$el.querySelector("#messageList");
-            console.log(container.scrollHeight);
             container.scrollTop = container.scrollHeight * 10;
-            console.log(container.scrollHeight);
         }
     },
 
