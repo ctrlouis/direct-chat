@@ -41,7 +41,7 @@
             <md-bottom-bar md-sync-route>
                     <md-field>
                         <label>Your message</label>
-                        <md-textarea v-model="message"></md-textarea>
+                        <md-textarea v-model="content"></md-textarea>
                     </md-field>
                     <md-button class="md-raised md-primary" @click="sendMessage">Send</md-button>
             </md-bottom-bar>
@@ -73,7 +73,7 @@ export default {
             password: null,
             ws: null,
             username: null,
-            message: "",
+            content: "",
             messages: [],
             readyToChat: false,
         }
@@ -103,12 +103,12 @@ export default {
         },
 
         sendMessage() {
-            if (!this.message || this.message == "") return ;
-            const message = new Message(this.username, this.message, this.password);
-            console.log(message.encrypted);
+            if (!this.content || this.content == "") return ;
+            const message = new Message(this.content, this.username);
+            message.encrypt(this.password);
             this.ws.send(message.encrypted);
             this.addMessage(message, true);
-            this.message = "";
+            this.content = "";
         },
 
         addMessage(newMessage, sendByMe =false) {
