@@ -8,6 +8,11 @@
                 <span class="md-helper-text">Choose a username or keep input blank to stay anonym</span>
             </md-field>
 
+            <md-field>
+                <label>Chat password</label>
+                <md-input v-model="password"></md-input>
+            </md-field>
+
             <div>
                 <label>Connection type:</label>
                 <md-switch v-model="connection.remote">{{ !connection.remote ? 'Host conversation' : 'Connect to remote conversation' }}</md-switch>
@@ -65,16 +70,19 @@ export default {
                 ip: "10.1.250.157",
                 url: ""
             },
+            password: null,
+            ws: null,
             username: null,
             message: "",
+            messages: [],
             readyToChat: false,
-            ws: null,
-            messages: []
         }
     },
 
     methods: {
         getReadyToChat() {
+            this.$store.commit('setPassword', this.password);
+
             if (this.connection.remote) {
                 this.connection.url = `ws://${this.connection.ip}:5000`;
             } else {
@@ -87,8 +95,8 @@ export default {
             });
 
             this.ws.addEventListener("message", res => {
-                const message = JSON.parse(res.data);
-                this.addMessage(message);
+                const encryptMessage = res.data;
+                this.addMessage(encryptMessage);
             })
 
             this.readyToChat = true;
@@ -96,14 +104,22 @@ export default {
 
         sendMessage() {
             if (!this.message || this.message == "") return ;
-            const message = new Message(this.username, this.message);
-            this.ws.send(JSON.stringify(message));
-            this.addMessage(message);
+            const message = new Message(this.username, this.message, this.password);
+            console.log(message.encrypted);
+            this.ws.send(message.encrypted);
+            this.addMessage(message, true);
             this.message = "";
         },
 
-        addMessage(message, sendByMe =false) {
-            if (sendByMe) message.sendByMe = true;
+        addMessage(newMessage, sendByMe =false) {
+            let message;
+            if (sendByMe) {
+                newMessage.sendByMe = true;
+                message = newMessage;
+            } else {
+                message = new Message();
+                message.decrypt(newMessage, this.password);
+            }
             this.messages.push(message);
             this.scrollToEnd();
         },
