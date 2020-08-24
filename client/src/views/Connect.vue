@@ -25,8 +25,10 @@
             </div>
         </div>
         
-        <md-switch v-model="detailNotification" @change="onToggleDetailNotification">{{ !detailNotification ? 'Discreet notifications' : 'Show detail on notifications' }}</md-switch>
-
+        <div>
+            <md-button v-if="!notificationAllowed" class="md-raised md-primary" @click="allowNotification">Allow notifications</md-button>
+            <md-switch v-model="detailNotification" @change="onToggleDetailNotification">{{ !detailNotification ? 'Discreet notifications' : 'Show detail on notifications' }}</md-switch>
+        </div>
         <md-button class="md-raised md-primary" @click="connect">Continue</md-button>
     </div>
 </template>
@@ -44,6 +46,7 @@ export default {
             },
             username: null,
             password: null,
+            notificationAllowed: false,
             detailNotification: false,
         }
     },
@@ -55,6 +58,9 @@ export default {
             this.$store.commit('setServer', this.server);
             console.log(this.server);
             this.$router.push('/chat');
+        },
+        allowNotification() {
+            Notification.requestPermission();
         },
         onToggleDetailNotification() {
             this.$store.commit('toggleDetailNotification');
@@ -76,7 +82,10 @@ export default {
     },
 
     created() {
-        Notification.requestPermission();
+        const notificationAllowed = Notification.permission === 'granted';
+        if (notificationAllowed) {
+            this.notificationAllowed = true;
+        }
     }
 }
 </script>
