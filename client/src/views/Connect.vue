@@ -24,6 +24,8 @@
                 <input v-model="connection.ip" placeholder="IP Adress">
             </div>
         </div>
+        
+        <md-switch v-model="detailNotification" @change="onToggleDetailNotification">{{ !detailNotification ? 'Discreet notifications' : 'Show detail on notifications' }}</md-switch>
 
         <md-button class="md-raised md-primary" @click="connect">Continue</md-button>
     </div>
@@ -42,6 +44,7 @@ export default {
             },
             username: null,
             password: null,
+            detailNotification: false,
         }
     },
 
@@ -52,6 +55,11 @@ export default {
             this.$store.commit('setServer', this.server);
             console.log(this.server);
             this.$router.push('/chat');
+        },
+        onToggleDetailNotification() {
+            this.$store.commit('toggleDetailNotification');
+            this.detailNotification = this.$store.state.detailNotification;
+            console.log(this.$store.state.detailNotification);
         },
     },
 
@@ -65,6 +73,10 @@ export default {
             }
             return server;
         },
+    },
+
+    created() {
+        Notification.requestPermission();
     }
 }
 </script>

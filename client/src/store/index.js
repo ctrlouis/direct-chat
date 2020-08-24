@@ -8,7 +8,8 @@ export default new Vuex.Store({
     state: {
         username: null,
         password: null,
-        server: null
+        server: null,
+        detailNotification: false
     },
     mutations: {
         setUsername(state, username) {
@@ -22,6 +23,9 @@ export default new Vuex.Store({
         },
         resetPassword(state) {
             state.password = null;
+        },
+        toggleDetailNotification(state) {
+            state.detailNotification = !state.detailNotification;
         }
     },
     actions: {
