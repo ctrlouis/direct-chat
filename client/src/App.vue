@@ -1,30 +1,33 @@
 <template>
     <div id="app">
-        <main>
-            <router-link to="/"><h1>Title</h1></router-link>
-            <router-view></router-view>
-        </main>
-        <footer>
-            <p></p>
-        </footer>
+        <router-view></router-view>
     </div>
 </template>
 
 <script>
 export default {
-  name: 'app',
-  data() {
-    return {
+    name: 'app',
+    data() {
+        return {
+        }
     }
-  }
 }
 </script>
 
 <style lang="scss" scoped>
-h1, p {
-  text-align: center;
+#app {
+    font-family: Avenir, Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-align: center;
+    color: #2c3e50;
 }
+
+h1, p {
+    text-align: center;
+}
+
 a {
-  text-decoration: none;
+    text-decoration: none;
 }
 </style>
