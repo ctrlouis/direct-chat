@@ -64,9 +64,29 @@ export default {
             } else {
                 message = new Message();
                 message.decrypt(newMessage, this.password);
+                this.notify(message);
             }
             this.messages.push(message);
             this.scrollToEnd();
+        },
+
+        notify(message) {
+            const focused = document.hasFocus();
+            const allowedNotificaiton = Notification.permission === 'granted';
+
+            if (!focused && allowedNotificaiton) {
+                let title = `New message`;
+                let options = null;
+
+                if (this.$store.state.detailNotification) {
+                    title = `Message from ${message.author}`;
+                    options = {
+                        body: `${message.content}`,
+                    };
+                } 
+
+                new Notification(title, options);
+            }
         },
 
         scrollToEnd() {    	
