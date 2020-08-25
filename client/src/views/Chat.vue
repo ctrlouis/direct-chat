@@ -1,5 +1,5 @@
 <template>
-    <div id="chat" @keyup.enter.exact="sendMessage">
+    <div id="chat" @keyup.enter.exact.prevent="sendMessage">
         <MessageList :messages="messages" id="messageList" />
         <md-field>
             <label>Your message</label>
