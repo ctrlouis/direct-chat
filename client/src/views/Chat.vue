@@ -1,9 +1,9 @@
 <template>
     <div id="chat" @keyup.enter.exact.prevent="sendMessage">
         <MessageList :messages="messages" id="messageList" />
-        <md-field>
+        <md-field :class="textInputClass">
             <label>Your message</label>
-            <md-textarea v-model="content"></md-textarea>
+            <md-textarea v-model="content" required></md-textarea>
         </md-field>
         <md-button class="md-raised md-primary" @click="sendMessage">Send</md-button>
         <div id="inputChat">
@@ -31,6 +31,7 @@ export default {
             content: "",
             messages: [],
             readyToChat: false,
+            textAreaFilled: true 
         }
     },
 
@@ -48,7 +49,11 @@ export default {
         },
 
         sendMessage() {
-            if (!this.content || this.content == "") return ;
+            console.log(this.content);
+            if (!this.content || this.content == ""){
+                this.textAreaFilled = false;
+                return;
+            }
             const message = new Message(this.content, this.username);
             message.encrypt(this.password);
             this.ws.send(message.encrypted);
@@ -92,6 +97,21 @@ export default {
         scrollToEnd() {    	
             const container = this.$el.querySelector("#messageList");
             container.scrollTop = container.scrollHeight * 10;
+        }
+    },
+
+    computed: {
+        textInputClass(){
+            return {
+                'md-invalid': !this.textAreaFilled
+            }
+        },
+    },
+
+    watch: {
+        content() {
+            if(this.content || this.content != "" && !this.textAreaFilled)
+                this.textAreaFilled = true;
         }
     },
 
