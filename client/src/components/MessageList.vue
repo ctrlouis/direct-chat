@@ -1,7 +1,7 @@
 <template>
     <div>
         <div v-for="message in messages" :key="message.content" class="message" :class="messageSender(message.author)">
-            <span class="bubble">{{message.content}}</span>
+            <span class="bubble md-elevation-2">{{message.content}}</span>
             <div class="meta-data">
                 <md-avatar class="md-avatar-icon">{{avatarChar(message.author)}}</md-avatar>
                 <span>{{message.author}}</span>
@@ -38,10 +38,11 @@ export default {
     flex-direction: row;
     align-items: baseline;
     margin: 1em;
+    white-space: pre-wrap;
+    text-align: left;
 
     .bubble {
-        border: 1px solid black;
-        padding: .5em 2em;
+        padding: .5em 1.5em;
         border-radius: .3em;
     }
 
@@ -70,6 +71,5 @@ export default {
 
 .sent {
     align-self: end;
-    background-color: white;
 }
 </style>
