@@ -1,13 +1,12 @@
 <template>
     <div id="chat" @keyup.enter.exact.prevent="sendMessage">
         <MessageList :messages="messages" :username="username" id="messageList" />
-        <md-field :class="textInputClass">
-            <label>Your message</label>
-            <md-textarea v-model="content" required></md-textarea>
-        </md-field>
-        <md-button class="md-raised md-primary" @click="sendMessage">Send</md-button>
-        <div id="inputChat">
-            
+        <div class="message-form md-elevation-5">
+            <!-- <input type="text" class="md-elevation-2" v-model="content" placeholder="Your message"> -->
+            <textarea rows="1" class="md-elevation-2" v-model="content" placeholder="Your message" spellcheck="true"></textarea>
+            <md-button class="md-icon-button md-raised md-primary" @click="sendMessage">
+                <md-icon>send</md-icon>
+            </md-button>
         </div>
     </div>
 </template>
@@ -51,7 +50,6 @@ export default {
         sendMessage() {
             console.log(this.content);
             if (!this.content || this.content == ""){
-                this.textAreaFilled = false;
                 return;
             }
             const message = new Message(this.content, this.username);
@@ -100,21 +98,6 @@ export default {
         }
     },
 
-    computed: {
-        textInputClass(){
-            return {
-                'md-invalid': !this.textAreaFilled
-            }
-        },
-    },
-
-    watch: {
-        content() {
-            if(this.content || this.content != "" && !this.textAreaFilled)
-                this.textAreaFilled = true;
-        }
-    },
-
     created() {
         this.connectWebsocket();
         this.username = this.$store.state.username;
@@ -124,6 +107,9 @@ export default {
 </script>
 
 <style lang="scss">
+$material-icons-font-path: '~material-icons/iconfont/';
+@import '~material-icons/iconfont/material-icons.scss';
+
 #chat {
     height: 100vh;
     width: 100%;
@@ -140,6 +126,22 @@ export default {
 
     .md-button {
         flex-shrink: 0;
+    }
+}
+
+.message-form {
+    display: flex;
+    flex-direction: row;
+    padding: 1em 2em;
+    
+    textarea {
+        flex-grow: 1;
+        padding: 1em;
+        border-radius: 5em;
+        border: none;
+        background-color: white;
+        resize: none;
+        height: max-content;
     }
 }
 
