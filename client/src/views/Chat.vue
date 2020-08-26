@@ -123,7 +123,7 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss">
 #chat {
     height: 100vh;
     width: 100%;
@@ -133,14 +133,20 @@ export default {
 
     flex-direction: column;
     flex-wrap: nowrap;
+
+    .md-field {
+        flex-shrink: 0;
+    }
+
+    .md-button {
+        flex-shrink: 0;
+    }
 }
 
 #messageList {
+    display: flex;
+    flex-direction: column;
     flex-grow: 1;
     overflow: auto;
-}
-
-#inputChat {
-    flex-shrink: 0;
 }
 </style>
