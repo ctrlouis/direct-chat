@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div v-for="message in messages" :key="message.content">
+        <div v-for="message in messages" :key="message.content" class="message" :class="messageSender(message.author)">
             <md-avatar class="md-avatar-icon">{{avatarChar(message.author)}}</md-avatar>
             {{message.author}} {{message.content}}
             <!-- <Message :author="message.author" :content="message.content" :date="message.data" /> -->
@@ -12,26 +12,38 @@
 // import Message from './Message.vue';
 
 export default {
-    props: ['messages'],
+    props: ['messages', 'username'],
 
     methods: {
         avatarChar(username ="A") {
             return username.charAt(0);
+        },
+
+        messageSender(username) {
+            if(this.username != username)
+                return 'receive';
+            else
+                return 'sent';
         }
     },
 }
 </script>
 
-<style>
+<style lang="scss">
 .message {
-    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
 }
 
 .receive {
+    align-self: start;
     background-color: blue;
 }
 
-.send {
+.sent {
+    align-self: end;
     background-color: white;
+    flex-direction: row-reverse;
 }
 </style>

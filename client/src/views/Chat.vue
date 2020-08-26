@@ -1,6 +1,6 @@
 <template>
     <div id="chat" @keyup.enter.exact.prevent="sendMessage">
-        <MessageList :messages="messages" id="messageList" />
+        <MessageList :messages="messages" :username="username" id="messageList" />
         <md-field :class="textInputClass">
             <label>Your message</label>
             <md-textarea v-model="content" required></md-textarea>
