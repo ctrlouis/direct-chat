@@ -137,11 +137,19 @@ $material-icons-font-path: '~material-icons/iconfont/';
     textarea {
         flex-grow: 1;
         padding: 1em;
-        border-radius: 5em;
+        border-radius: 2em;
         border: none;
         background-color: white;
         resize: none;
         height: max-content;
+        outline: none;
+        overflow-y: auto;
+        -ms-overflow-style: none;  /* IE and Edge */
+        scrollbar-width: none;  /* Firefox */
+
+        &::-webkit-scrollbar{
+            display: none;
+        }
     }
 }
 
