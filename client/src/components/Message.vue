@@ -1,28 +1,74 @@
 <template>
-    <div>
-        <p>{{author}}</p>
-        <p>{{content}}</p>
-        <p>{{date}}</p>
+    <div class="message" :class="messageSender(message.author)">
+        <span class="bubble md-elevation-2">{{message.content}}</span>
+        <div class="meta-data">
+            <md-avatar class="md-avatar-icon">{{avatarChar(message.author)}}</md-avatar>
+            <span>{{message.author}}</span>
+        </div>
     </div>
 </template>
 
 <script>
 
 export default {
-  props: ['author', 'content', 'date']
+    props: ['message', 'username'],
+
+    methods: {
+        avatarChar(username ="A") {
+            return username.charAt(0);
+        },
+
+        messageSender(author) {
+            console.log(author);
+            console.log(this.username);
+            if(this.username != author)
+                return 'receive';
+            else
+                return 'sent';
+        },
+    },
 }
 </script>
 
-<style>
+<style lang="scss">
 .message {
-    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+    margin: 1em;
+    white-space: pre-wrap;
+    text-align: left;
+
+    .bubble {
+        padding: .5em 1.5em;
+        border-radius: .3em;
+    }
+
+    .meta-data {
+        display: flex;
+        flex-direction: column;
+        margin: 0 1em;
+
+        span {
+            color: #a8a8a8;
+            font-style: italic;
+        }
+    }
 }
 
 .receive {
-    background-color: blue;
+    align-self: start;
+    flex-direction: row-reverse;
+
+    .bubble {
+        color: white;
+        background: linear-gradient(rgb(0, 182, 255), rgb(0, 133, 255));
+    }
+    
 }
 
-.send {
-    background-color: white;
+.sent {
+    align-self: end;
+    float: right;
 }
 </style>
