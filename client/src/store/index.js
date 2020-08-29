@@ -12,19 +12,19 @@ export default new Vuex.Store({
         detailNotification: false
     },
     mutations: {
-        setUsername(state, username) {
+        SET_USERNAME(state, username) {
             state.username = username;
         },
-        setPassword(state, password) {
+        SET_PASSWORD(state, password) {
             state.password = password;
         },
-        setServer(state, server) {
+        SET_SERVER(state, server) {
             state.server = server;
         },
-        resetPassword(state) {
+        RESET_PASSWORD(state) {
             state.password = null;
         },
-        toggleDetailNotification(state) {
+        TOGGLE_DETAIL_NOTIFICATION(state) {
             state.detailNotification = !state.detailNotification;
         }
     },
