@@ -67,8 +67,12 @@ export default {
                 message.decrypt(newMessage, this.password);
                 this.notify(message);
             }
-            this.$store.commit('ADD_MESSAGE', message);
-            this.scrollToEnd();
+            new Promise(resolve => {
+                this.$store.commit('ADD_MESSAGE', message);
+                resolve();
+            }).then(() => {
+                this.scrollToEnd();
+            });
         },
 
         notify(message) {
@@ -92,7 +96,7 @@ export default {
 
         scrollToEnd() {    	
             const container = this.$el.querySelector("#messageList");
-            container.scrollTop = container.scrollHeight * 10;
+            container.scrollTop = container.scrollHeight;
         }
     },
 
