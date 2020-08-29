@@ -34,7 +34,7 @@
 </template>
 
 <script>
-import { mapMutations } from 'vuex';
+import { mapActions } from 'vuex';
 
 export default {
     name: 'connect',
@@ -54,19 +54,19 @@ export default {
     },
 
     methods: {
-        ...mapMutations(
+        ...mapActions(
             [
-                'SET_USERNAME',
-                'SET_PASSWORD',
-                'SET_SERVER',
-                'TOGGLE_DETAIL_NOTIFICATION'
+                'setUsername',
+                'setPassword',
+                'setServer',
+                'toggleDetailNotification'
             ]
         ),
 
         connect() {
-            this.$store.commit('SET_USERNAME', this.username);
-            this.$store.commit('SET_PASSWORD', this.password);
-            this.$store.commit('SET_SERVER', this.server);
+            this.setUsername(this.username);
+            this.setPassword(this.password);
+            this.setServer(this.server);
             console.log(this.server);
             this.$router.push('/chat');
         },
@@ -74,7 +74,7 @@ export default {
             Notification.requestPermission();
         },
         onToggleDetailNotification() {
-            this.$store.commit('TOGGLE_DETAIL_NOTIFICATION');
+            this.toggleDetailNotification();
             this.detailNotification = this.$store.state.detailNotification;
             console.log(this.$store.state.detailNotification);
         },
