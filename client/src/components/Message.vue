@@ -3,7 +3,10 @@
         <span class="bubble md-elevation-2">{{message.content}}</span>
         <div class="meta-data">
             <md-avatar class="md-avatar-icon">{{avatarChar(message.author)}}</md-avatar>
-            <span>{{message.author}}</span>
+            <div class="message-info">
+                <span>{{message.date | toLocaleString}}</span>
+                <span v-if="!isSender"> - {{message.author}}</span>
+            </div>
         </div>
     </div>
 </template>
@@ -32,11 +35,11 @@ export default {
         },
     },
 
-    computed: {
-        username() {
-            return this.$store.state.username;
-        }
-    },
+    filters: {
+        toLocaleString(date) {
+            return new Date(date).toLocaleTimeString('fr-FR');
+        },
+    }
 }
 </script>
 
@@ -59,8 +62,10 @@ export default {
         flex-direction: column;
         margin: 0 1em;
 
-        span {
+        .message-info {
             color: #a8a8a8;
+            display: flex;
+            flex-direction: row;
             font-style: italic;
         }
     }
