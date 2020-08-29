@@ -1,5 +1,5 @@
 <template>
-    <div class="message" :class="messageSender(message.author)">
+    <div class="message" :class="{'sent': isSender, 'received': !isSender}">
         <span class="bubble md-elevation-2">{{message.content}}</span>
         <div class="meta-data">
             <md-avatar class="md-avatar-icon">{{avatarChar(message.author)}}</md-avatar>
@@ -17,12 +17,18 @@ export default {
         avatarChar(username ="A") {
             return username.charAt(0);
         },
+    },
 
-        messageSender(author) {
-            if(this.username != author)
-                return 'receive';
+    computed: {
+        username() {
+            return this.$store.state.username;
+        },
+
+        isSender() {
+            if(this.message.author == this.username)
+                return true;
             else
-                return 'sent';
+                return false;
         },
     },
 
@@ -60,7 +66,7 @@ export default {
     }
 }
 
-.receive {
+.received {
     align-self: start;
     flex-direction: row-reverse;
 
