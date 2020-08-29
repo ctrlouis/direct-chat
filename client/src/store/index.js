@@ -9,7 +9,8 @@ export default new Vuex.Store({
         username: null,
         password: null,
         server: null,
-        detailNotification: false
+        detailNotification: false,
+        messages: []
     },
     mutations: {
         SET_USERNAME(state, username) {
@@ -26,7 +27,10 @@ export default new Vuex.Store({
         },
         TOGGLE_DETAIL_NOTIFICATION(state) {
             state.detailNotification = !state.detailNotification;
-        }
+        },
+        ADD_MESSAGE(state, message) {
+            state.messages.push(message);
+        },
     },
     actions: {
         setUsername(context, username) {
@@ -47,7 +51,7 @@ export default new Vuex.Store({
         
         toggleDetailNotification(context) {
             context.commit('TOGGLE_DETAIL_NOTIFICATION');
-        },        
+        },
     },
     modules: {
     }

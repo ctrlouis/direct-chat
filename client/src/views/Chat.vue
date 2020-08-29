@@ -1,6 +1,6 @@
 <template>
     <div id="chat" @keyup.enter.exact.prevent="sendMessage">
-        <MessageList :messages="messages" id="messageList"/>
+        <MessageList id="messageList"/>
         <div class="message-form md-elevation-5">
             <!-- <input type="text" class="md-elevation-2" v-model="content" placeholder="Your message"> -->
             <textarea rows="1" class="md-elevation-2" v-model="content" placeholder="Your message" spellcheck="true"></textarea>
@@ -27,7 +27,6 @@ export default {
         return {
             ws: null,
             content: "",
-            messages: [],
             readyToChat: false,
             textAreaFilled: true 
         }
@@ -68,7 +67,7 @@ export default {
                 message.decrypt(newMessage, this.password);
                 this.notify(message);
             }
-            this.messages.push(message);
+            this.$store.commit('ADD_MESSAGE', message);
             this.scrollToEnd();
         },
 
