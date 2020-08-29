@@ -1,6 +1,6 @@
 <template>
     <div id="chat" @keyup.enter.exact.prevent="sendMessage">
-        <MessageList :messages="messages" :username="username" id="messageList" />
+        <MessageList :messages="messages" id="messageList"/>
         <div class="message-form md-elevation-5">
             <!-- <input type="text" class="md-elevation-2" v-model="content" placeholder="Your message"> -->
             <textarea rows="1" class="md-elevation-2" v-model="content" placeholder="Your message" spellcheck="true"></textarea>
@@ -14,6 +14,7 @@
 <script>
 import MessageList from '@/components/MessageList.vue';
 import Message from './../models/Message.js';
+import { mapState } from 'vuex';
 
 export default {
     name: 'chat',
@@ -25,8 +26,6 @@ export default {
     data() {
         return {
             ws: null,
-            username: null,
-            password: null,
             content: "",
             messages: [],
             readyToChat: false,
@@ -98,10 +97,13 @@ export default {
         }
     },
 
+    computed: mapState([
+        'username',
+        'password'
+    ]),
+
     created() {
         this.connectWebsocket();
-        this.username = this.$store.state.username;
-        this.password = this.$store.state.password;
     }
 }
 </script>

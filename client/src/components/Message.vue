@@ -11,7 +11,7 @@
 <script>
 
 export default {
-    props: ['message', 'username'],
+    props: ['message'],
 
     methods: {
         avatarChar(username ="A") {
@@ -19,13 +19,17 @@ export default {
         },
 
         messageSender(author) {
-            console.log(author);
-            console.log(this.username);
             if(this.username != author)
                 return 'receive';
             else
                 return 'sent';
         },
+    },
+
+    computed: {
+        username() {
+            return this.$store.state.username;
+        }
     },
 }
 </script>

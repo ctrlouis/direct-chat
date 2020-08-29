@@ -1,6 +1,6 @@
 <template>
     <div id="messageList">
-        <Message v-for="message in messages" :key="message.content" :message="message" :username="username"></Message>
+        <Message v-for="message in messages" :key="message.content" :message="message"></Message>
     </div>
 </template>
 
@@ -13,7 +13,7 @@ export default {
         Message
     },
 
-    props: ['messages', 'username'],
+    props: ['messages'],
     
 }
 </script>
