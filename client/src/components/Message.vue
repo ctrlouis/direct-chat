@@ -5,7 +5,7 @@
             <md-avatar class="md-avatar-icon">{{avatarChar(message.author)}}</md-avatar>
             <div class="message-info">
                 <span>{{message.date | toLocaleString}}</span>
-                <span v-if="!isSender"> - {{message.author}}</span>
+                <span v-if="!isSender" class="author"> - {{message.author}}</span>
             </div>
         </div>
     </div>
@@ -47,7 +47,7 @@ export default {
 .message {
     display: flex;
     flex-direction: row;
-    align-items: baseline;
+    align-items: last baseline;
     margin: 1em;
     white-space: pre-wrap;
     text-align: left;
@@ -55,18 +55,25 @@ export default {
     .bubble {
         padding: .5em 1.5em;
         border-radius: .3em;
+        word-break: break-all;
     }
 
     .meta-data {
         display: flex;
         flex-direction: column;
         margin: 0 1em;
+        align-items: flex-start;
 
         .message-info {
             color: #a8a8a8;
             display: flex;
             flex-direction: row;
             font-style: italic;
+
+            .author {
+                text-align: center;
+                word-break: break-all;
+            }
         }
     }
 }
@@ -85,5 +92,9 @@ export default {
 .sent {
     align-self: end;
     float: right;
+}
+
+.md-avatar-icon {
+    margin-left: .5em !important;
 }
 </style>
