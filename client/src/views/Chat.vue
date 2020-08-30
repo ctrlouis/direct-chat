@@ -143,7 +143,7 @@ $material-icons-font-path: '~material-icons/iconfont/';
         padding: 1em;
         border-radius: 2em;
         border: none;
-        background-color: white;
+        background-color: rgba(0,0,0,.1);
         resize: none;
         height: max-content;
         outline: none;

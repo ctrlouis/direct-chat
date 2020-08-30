@@ -17,7 +17,11 @@ const actions = {
 
     toggleDetailNotification(context) {
         context.commit('TOGGLE_DETAIL_NOTIFICATION');
-    }
+    },
+
+    toggleDarkTheme(context) {
+        context.commit('TOGGLE_DARK_THEME');
+    },
 }
 
 export default actions;

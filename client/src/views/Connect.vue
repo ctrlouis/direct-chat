@@ -21,6 +21,10 @@
         </md-field>
                 </div>
 
+                <md-switch v-model="darkTheme">
+                    {{ !darkTheme ? 'Light theme' : 'Dark theme' }}
+                </md-switch>
+
                 <div class="inline-flex flex-column align-items-center">
                     <md-switch v-model="connection.remote">
                         {{ !connection.remote ? 'Host conversation' : 'Connect to remote conversation' }}</md-switch>
@@ -108,6 +112,15 @@ export default {
                 server = `ws://localhost:5000`;
             }
             return server;
+        },
+
+        darkTheme: {
+            get() {
+                return this.$store.state.darkTheme
+            },
+            set(value) {
+                this.$store.commit('TOGGLE_DARK_THEME', value)
+            }
         },
     },
 

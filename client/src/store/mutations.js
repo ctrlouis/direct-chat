@@ -16,6 +16,9 @@ const mutations = {
     },
     ADD_MESSAGE(state, message) {
         state.messages.push(message);
+    },
+    TOGGLE_DARK_THEME(state, boolean) {
+        state.darkTheme = boolean;
     }
 }
 

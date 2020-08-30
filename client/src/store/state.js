@@ -3,7 +3,8 @@ const state = {
     password: null,
     server: null,
     detailNotification: false,
-    messages: []
+    messages: [],
+    darkTheme: false,
 }
 
 export default state;

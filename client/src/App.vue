@@ -10,17 +10,40 @@ export default {
     data() {
         return {
         }
+    },
+    watch: {
+        darkTheme() {
+            if (this.darkTheme === true) {
+                this.$material.theming.theme = "default-dark";
+            } else {
+                this.$material.theming.theme = "default";
+            }
+        }
+    },
+    computed: {
+        darkTheme() {
+            return this.$store.state.darkTheme;
+        }
     }
 }
 </script>
 
 <style lang="scss">
+$primary: blue;
+$accent: yellow;
+
 @import "~vue-material/dist/theme/engine"; // Import the theme engine
 
 @include md-register-theme("default", (
-  primary: md-get-palette-color(blue, A200), // The primary color of your application
-  accent: md-get-palette-color(yellow, 600), // The accent or secondary color
-  theme: light // This can be dark or light
+  primary: md-get-palette-color($primary, 500),
+  accent: md-get-palette-color($accent, 700),
+  theme: light
+));
+
+@include md-register-theme("default-dark", (
+  primary: md-get-palette-color($primary, 700),
+  accent: md-get-palette-color($accent, 800),
+  theme: dark
 ));
 
 @import "~vue-material/dist/theme/all"; // Apply the theme
