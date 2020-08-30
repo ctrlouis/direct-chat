@@ -45,6 +45,8 @@ export default {
 </script>
 
 <style lang="scss">
+$message-margin-x: .3em;
+
 @mixin message-animation-duration {
     animation-duration: .25s;
 }
@@ -84,10 +86,11 @@ export default {
 }
 
 .received {
-    align-self: start;
     flex-direction: row-reverse;
     animation: fadeInLeft;
     @include message-animation-duration();
+    margin-left: $message-margin-x;
+    margin-right: auto;
 
     .bubble {
         color: white;
@@ -97,10 +100,10 @@ export default {
 }
 
 .sent {
-    align-self: end;
-    float: right;
     animation: fadeInRight;
     @include message-animation-duration();
+    margin-left: auto;
+    margin-right: $message-margin-x;
 }
 
 .md-avatar-icon {
