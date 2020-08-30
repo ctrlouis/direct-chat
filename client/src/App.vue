@@ -14,20 +14,31 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
-#app {
-    font-family: Avenir, Helvetica, Arial, sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    text-align: center;
-    color: #2c3e50;
-}
+<style lang="scss">
+@import "~vue-material/dist/theme/engine"; // Import the theme engine
 
-h1, p {
-    text-align: center;
-}
+@include md-register-theme("default", (
+  primary: md-get-palette-color(blue, A200), // The primary color of your application
+  accent: md-get-palette-color(yellow, 600), // The accent or secondary color
+  theme: light // This can be dark or light
+));
 
-a {
-    text-decoration: none;
+@import "~vue-material/dist/theme/all"; // Apply the theme
+
+.flex {
+    display: flex;
+}
+.inline-flex {
+    display: inline-flex;
+}
+.flex-row {
+    flex-direction: row;
+}
+.flex-column {
+    flex-direction: column;
+}
+.align-items-center {
+    align-items: center;
+    align-self: flex-start;
 }
 </style>
