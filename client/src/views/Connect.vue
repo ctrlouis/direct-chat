@@ -1,5 +1,14 @@
 <template>
     <div id="connect">
+        <md-app md-waterfall md-mode="overlap">
+            <md-app-toolbar class="md-primary md-large">
+                <div class="md-toolbar-row">
+                    <span class="md-title">direct-chat</span>
+                </div>
+            </md-app-toolbar>
+    
+            <md-app-content class="inline-flex flex-column">
+                <div class="inline-flex flex-column">
         <md-field>
             <label>Username</label>
             <md-input v-model="username"></md-input>
@@ -10,10 +19,11 @@
             <label>Chat password</label>
             <md-input v-model="password"></md-input>
         </md-field>
+                </div>
 
-        <div>
-            <label>Connection type:</label>
-            <md-switch v-model="connection.remote">{{ !connection.remote ? 'Host conversation' : 'Connect to remote conversation' }}</md-switch>
+                <div class="inline-flex flex-column align-items-center">
+                    <md-switch v-model="connection.remote">
+                        {{ !connection.remote ? 'Host conversation' : 'Connect to remote conversation' }}</md-switch>
             <div v-if="!connection.remote">
                 <!-- <ul>
                     <li>LAN : (in coming)</li>
@@ -21,15 +31,24 @@
                 </ul> -->
             </div>
             <div v-else>
-                <input v-model="connection.ip" placeholder="IP Adress">
+                        <md-field>
+                            <label>IP Adress</label>
+                            <md-input v-model="connection.ip"></md-input>
+                        </md-field>
             </div>
         </div>
         
         <div>
-            <md-button v-if="!notificationAllowed" class="md-raised md-primary" @click="allowNotification">Allow notifications</md-button>
-            <md-switch v-model="detailNotification" @change="onToggleDetailNotification">{{ !detailNotification ? 'Discreet notifications' : 'Show detail on notifications' }}</md-switch>
+                    <md-button v-if="!notificationAllowed" class="md-raised md-primary" @click="allowNotification">Allow
+                        notifications
+                    </md-button>
+                    <md-switch v-else v-model="detailNotification" @change="onToggleDetailNotification">
+                        {{ !detailNotification ? 'Hide notifications content' : 'Show notifications content' }}
+                    </md-switch>
         </div>
         <md-button class="md-raised md-primary" @click="connect">Continue</md-button>
+            </md-app-content>
+        </md-app>
     </div>
 </template>
 
@@ -100,3 +119,9 @@ export default {
     }
 }
 </script>
+
+<style lang="scss">
+#connect {
+    text-align: center;
+}
+</style>
