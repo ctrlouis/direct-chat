@@ -12,6 +12,7 @@
 </template>
 
 <script>
+import 'animate.css';
 
 export default {
     props: ['message'],
@@ -44,6 +45,10 @@ export default {
 </script>
 
 <style lang="scss">
+@mixin message-animation-duration {
+    animation-duration: .25s;
+}
+
 .message {
     display: flex;
     flex-direction: row;
@@ -81,6 +86,8 @@ export default {
 .received {
     align-self: start;
     flex-direction: row-reverse;
+    animation: fadeInLeft;
+    @include message-animation-duration();
 
     .bubble {
         color: white;
@@ -92,6 +99,8 @@ export default {
 .sent {
     align-self: end;
     float: right;
+    animation: fadeInRight;
+    @include message-animation-duration();
 }
 
 .md-avatar-icon {

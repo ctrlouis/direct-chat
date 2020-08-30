@@ -161,6 +161,7 @@ $material-icons-font-path: '~material-icons/iconfont/';
     display: flex;
     flex-direction: column;
     flex-grow: 1;
-    overflow: auto;
+    overflow-x: hidden;
+    overflow-y: auto;
 }
 </style>
