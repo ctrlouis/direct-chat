@@ -1,13 +1,11 @@
 <template>
     <div class="message" :class="{'sent': isSender, 'received': !isSender}">
-        <span class="bubble md-elevation-2">{{message.content}}</span>
-        <div class="meta-data">
-            <md-avatar class="md-avatar-icon">{{avatarChar(message.author)}}</md-avatar>
-            <div class="message-info">
-                <span>{{message.date | toLocaleString}}</span>
-                <span v-if="!isSender" class="author"> - {{message.author}}</span>
-            </div>
+        <div class="flex flex-column">
+            <span v-if="!isSender" class="metadata">{{message.author}}</span>
+            <span class="bubble md-elevation-2">{{message.content}}</span>
+            <span class="metadata">{{message.date | toLocaleString}}</span>
         </div>
+        <md-avatar class="md-avatar-icon">{{avatarChar(message.author)}}</md-avatar>
     </div>
 </template>
 
@@ -54,10 +52,21 @@ $message-margin-x: .3em;
 .message {
     display: flex;
     flex-direction: row;
-    align-items: last baseline;
+    align-items: flex-end;
     margin: 1em;
     white-space: pre-wrap;
     text-align: left;
+    position: relative;
+
+    div {
+        &:first-child {
+            margin: 0 1em;
+        }
+    }
+
+    .md-avatar {
+        margin-bottom: .7em;
+    }
 
     .bubble {
         padding: .5em 1.5em;
@@ -65,23 +74,14 @@ $message-margin-x: .3em;
         word-break: break-all;
     }
 
-    .meta-data {
-        display: flex;
-        flex-direction: column;
-        margin: 0 1em;
-        align-items: flex-start;
+    .author {
+        position: absolute;
+        top: -1.5em;
+    }
 
-        .message-info {
-            color: #a8a8a8;
-            display: flex;
-            flex-direction: row;
-            font-style: italic;
-
-            .author {
-                text-align: center;
-                word-break: break-all;
-            }
-        }
+    .metadata {
+        color: #a8a8a8; 
+        font-style: italic;
     }
 }
 
