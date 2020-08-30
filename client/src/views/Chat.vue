@@ -1,10 +1,10 @@
 <template>
-    <div id="chat" @keyup.enter.exact.prevent="sendMessage">
+    <div id="chat" @keypress.13.exact.stop.prevent="sendMessage">
         <MessageList id="messageList"/>
         <div class="message-form md-elevation-5">
             <!-- <input type="text" class="md-elevation-2" v-model="content" placeholder="Your message"> -->
             <textarea rows="1" class="md-elevation-2" v-model="content" placeholder="Your message" spellcheck="true"></textarea>
-            <md-button class="md-icon-button md-raised md-primary" @click="sendMessage">
+            <md-button class="md-icon-button md-raised md-primary" @click="sendMessage" :disabled="content == ''">
                 <md-icon>send</md-icon>
             </md-button>
         </div>
@@ -46,7 +46,6 @@ export default {
         },
 
         sendMessage() {
-            console.log(this.content);
             if (!this.content || this.content == ""){
                 return;
             }
